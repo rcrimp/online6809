@@ -88,12 +88,11 @@ function codeDump(id) { // eslint-disable-line no-unused-vars
 /**
  * Start assembly process.
  *
- * @param {String} id elementId name of source container
+ * @param {String} src string containing src
  */
-function compileRun(id) { // eslint-disable-line no-unused-vars
-  const element = document.getElementById(id);
-  if (element) {
-    mc6809.assemble(element.value.split('\n'));
+function compileRun(str) { // eslint-disable-line no-unused-vars
+  if (str) {
+    mc6809.assemble(str.split('\n'));
     mc6809.refresh(1);
   }
 }
@@ -217,8 +216,7 @@ const mc6809 = new bundle.CPU();
 mc6809.ready();
 const speed = new SlideControl(mc6809, 5);
 speed.bindId('speed', 'speedVal');
-document.getElementById('assembly-code').value =
-    document.getElementById('demo-helloworld').value;
+// document.getElementById('assembly-code').value = document.getElementById('demo-helloworld').value;
 machineInterrupt('reset');
 mc6809.refresh(1);
 mc6809.execute();

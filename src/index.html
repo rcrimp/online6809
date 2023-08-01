@@ -4,458 +4,502 @@
     <meta charset="utf-8">
     <meta name="description"
           content="An online assembler,disassembler and emulator for the Motorola 6809 CPU. Test snippets of machine code and see the results on simulated text and graphic displays.">
-    <title>Online Motorola 6809 Emulator</title>
-
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        table {
-            border-spacing: 2px;
-        }
-
-        h1 {
-            color: #808080;
-            margin-top: 0;
-            margin-bottom: 0.25em;
-            font-style: italic;
-        }
-
-        h3 {
-            margin-top: 0;
-            margin-bottom: 0.25em;
-        }
-
-        .controlCaption {
-            color: #ff0000;
-            font-weight: bold;
-        }
-
-        .anydig {
-            font-family: monospace, Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 2px;
-            background-color: #f8f8f8;
-            border: 1px solid #C0C0C0;
-        }
-
-        .anydig.hex {
-            font-size: 1.5em;
-        }
-
-        .anydig.hex.big {
-            font-size: 2.5em;
-        }
-
-        .anydig.bin {
-            font-size: 0.66em;
-        }
-
-        .anydig.flag {
-            font-size: 0.8em;
-        }
-
-        .anydig.label {
-            font-size: 0.8em;
-        }
-
-        .reglabel {
-            text-align: center;
-            font-size: 1.25em;
-            font-weight: bold;
-            color: #4040F0;
-        }
-
-        .regitem {
-            margin: 0 auto;
-        }
-
-        .txtScreen {
-            font-family: monospace, Arial, sans-serif;
-            font-size: 1em;
-            border-spacing: 0;
-        }
-
-        .txtFG {
-            color: #000000;
-            background-color: #20c020;
-            padding: 0;
-            margin: 0;
-        }
-
-        .txtBG {
-            color: #20c020;
-            background-color: #000000;
-            padding: 0;
-            margin: 0;
-        }
-
-        .txtGGreen {
-            color: #20c020;
-            background-color: #000000;
-            padding: 0;
-            margin: 0;
-        }
-
-        .txtGYellow {
-            color: #c0c020;
-            background-color: #000000;
-            padding: 0;
-            margin: 0;
-        }
-
-        .txtGBlue {
-            color: #2020C0;
-            background-color: #000000;
-            padding: 0;
-            margin: 0;
-        }
-
-        .txtGRed {
-            color: #c02020;
-            background-color: #000000;
-            padding: 0;
-            margin: 0;
-        }
-
-        .txtGWhite {
-            color: #c0c0c0;
-            background-color: #000000;
-            padding: 0;
-            margin: 0;
-        }
-
-        .txtGCyan {
-            color: #20c0c0;
-            background-color: #000000;
-            padding: 0;
-            margin: 0;
-        }
-
-        .txtGMagenta {
-            color: #c020c0;
-            background-color: #000000;
-            padding: 0;
-            margin: 0;
-        }
-
-        .txtGOrange {
-            color: #a06020;
-            background-color: #000000;
-            padding: 0;
-            margin: 0;
-        }
-
-        .watchWindow {
-            color: #c0c0c0;
-            background-color: #e0e0e0;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 1.25em;
-            vertical-align: baseline;
-            border-style: solid;
-            border-color: #c0c0c0;
-            border-width: 1px;
-            border-collapse: collapse;
-            border-spacing: 0px;
-            padding-left: 0.25em;
-            padding-right: 0.25em;
-            border-collapse: separate;
-            border-spacing: 0 0.25em;
-        }
-
-        .watchControl {
-            color: red;
-            background-color: orange;
-            font-weight: bold;
-            padding-left: 0.25em;
-            padding-right: 0.25em;
-            cursor: pointer;
-        }
-
-        .watchControl:hover {
-            background-color: magenta;
-        }
-
-        .watchAddr {
-            color: #e0a020;
-            background-color: black;
-            font-weight: bold;
-            padding-left: 1em;
-            padding-right: 1em;
-        }
-
-        .watchHex {
-            background-color: black;
-            color: #e0a020;
-            padding-left: 0.5em;
-            padding-right: 0.5em;
-        }
-
-        .DSM {
-            color: #808080;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 1em;
-            vertical-align: baseline;
-            border-style: solid;
-            border-color: #404040;
-            border-width: 1px;
-            border-collapse: collapse;
-            border-spacing: 0px;
-            padding: 0;
-        }
-
-        .DSMhi {
-            background-color: #107010;
-        }
-
-        .DSMlo {
-            background-color: #000000;
-        }
-
-        .DSM.ADDR {
-            color: #e0a020;
-            font-size: 0.9em;
-            font-weight: bold;
-            padding-left: 0.5em;
-            padding-right: 0.5em;
-            width: 3em;
-        }
-
-        .DSM.BYTES {
-            color: #e0a020;
-            font-size: 0.8em;
-            padding-left: 0.5em;
-            padding-right: 0.5em;
-            width: 9em;
-
-        }
-
-        .DSM.MNEM {
-            color: #c0c0c0;
-            font-weight: bold;
-            padding-left: 0.5em;
-            padding-right: 0.5em;
-            width: 12em
-        }
-
-        .DSM.Edit {
-            color: #f02020;
-            background-color: #d0d0f0;
-            padding-left: 0.5em;
-            padding-right: 0.5em;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
-        .cellEdit {
-            color: #2020F0;
-            background-color: #d0d0f0;
-            margin: 0;
-            padding: 0;
-            font-weight: bold;
-            font-size: 0.8em;
-            width: 100%;
-        }
-
-        .usageNote {
-            font-size: 0.9em;
-            font-style: italic;
-            margin-top: 0.25em;
-            margin-bottom: 0.25em;
-        }
-
-        .statusText {
-            color: #606060;
-            background-color: #f0f0f0;
-            border: 1px solid #404040;
-            font-size: 1em;
-            font-weight: bold;
-            padding-top: 0.25em;
-            padding-bottom: 0.25em;
-            padding-left: 1em;
-            padding-right: 1em;
-
-        }
-
-        .panel {
-            background-color: #f0f0f0;
-            padding: 0.5em;
-        }
-
-        .labelsContainer {
-            display: flex;
-            flex-direction: column;
-            border: 1px solid black;
-            height: 40em;
-            width: 12em;
-        }
-
-        .labelList {
-            flex-grow: 1;
-        }
-
-        .interrupts {
-            text-align: center;
-        }
-
-        .buttonRun {
-            background-color: #30d050;
-            border-radius: 16px;
-            border: 3px solid #18ab29;
-            display: inline-block;
-            cursor: pointer;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            font-size: 20px;
-            font-weight: bold;
-            padding: 4px 32px;
-            text-decoration: none;
-        }
-
-        .buttonRun:hover {
-            background-color: #5cbf2a;
-        }
-
-        .buttonRun:active {
-            position: relative;
-            top: 1px;
-        }
-
-        .buttonStep {
-            background-color: #c0c040;
-            border-radius: 8px;
-            border: 1px solid #808080;
-            display: inline-block;
-            cursor: pointer;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-            padding: 2px 16px;
-            text-decoration: none;
-        }
-
-        .buttonStep:hover {
-            background-color: #e09030;
-        }
-
-        .buttonStep:active {
-            position: relative;
-            top: 1px;
-        }
-
-        .buttonHalt {
-            background-color: #e04040;
-        }
-
-        .buttonHalt:hover {
-            background-color: #e09030;
-        }
-
-        .buttonIRQ {
-            border-radius: 4px;
-            padding: 2px 8px;
-            font-size: 12px;
-            background-color: #6060c0;
-        }
-
-        .buttonIRQ:hover {
-            background-color: #4040e0;
-        }
-
-        .buttonReset {
-            font-size: 16px;
-            background-color: #a060c0;
-        }
-
-        .buttonReset:hover {
-            background-color: #6040e0;
-        }
-
-        .machinePanel {
-            vertical-align: top;
-            padding: 0.5em;
-            background-color: #f4f4f4;
-        }
-
-        .screenPanel {
-            vertical-align: top;
-            padding: 0.5em;
-            background-color: #e8e8e8;
-        }
-
-        .examplesList {
-            display: none;
-            position: absolute;
-            background-color: #d0d0e0;
-            color: #202020;
-            min-width: 8em;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            text-shadow: none;
-            border: 1px solid black;
-            z-index: 1;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-
-        }
-
-        .dropDown {
-            position: relative;
-        }
-
-        .buttonExamples {
-            position: relative;
-            background-color: #c0c040;
-            border-radius: 4px;
-            border: 1px solid #808080;
-            display: inline-block;
-            cursor: pointer;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: bold;
-            padding: 2px 16px;
-            text-decoration: none;
-        }
-
-        .menuItem {
-            color: #4040c0;
-            margin: 0.25em;
-            padding: 0.25em;
-            font-size: 0.9em;
-            font-weight: bold;
-        }
-
-        .menuItem:hover {
-            background-color: #f8f8f8;
-        }
-
-        .dropDown:hover .examplesList {
-            display: block
-        }
-
-        .dropDown:hover .buttonExamples {
-            background-color: #e09030;
-        }
-
-
-    </style>
+    <title>COSC204: 6809 Emulator</title>
+    <script>
+      let editor = null;
+    </script>
+<style>
+:root {
+    --font-color: #bebebe;
+    --bg-color: #1D1F21;
+    --card-color: #25282C;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--font-color);
+}
+
+#main-container {
+    display: grid;
+    grid-template-columns: min-content fit-content(500px) min-content 1fr;
+}
+
+h1 {
+    /* color: #808080; */
+    margin-top: 0;
+    margin-bottom: 0.25em;
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+}
+
+.controlCaption {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.anydig {
+    font-family: monospace, Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 2px;
+    background-color: var(--bg-color);
+    border: 1px solid #C0C0C0;
+}
+
+.anydig.hex {
+    font-size: 1.5em;
+}
+
+.anydig.hex.big {
+    font-size: 2.5em;
+}
+
+.anydig.bin {
+    font-size: 0.66em;
+}
+
+.anydig.flag {
+    font-size: 0.8em;
+}
+
+.anydig.label {
+    font-size: 0.8em;
+}
+
+.reglabel {
+    text-align: center;
+    font-size: 1.25em;
+    font-weight: bold;
+    color: #4040F0;
+}
+
+.regitem {
+    margin: 0 auto;
+}
+
+.txtScreen {
+    font-family: monospace, Arial, sans-serif;
+    font-size: 1em;
+    border-spacing: 0;
+}
+
+.txtFG,
+.txtBG {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.txtFG,
+.txtBG,
+.txtGGreen,
+.txtGYellow,
+.txtGBlue,
+.txtGRed,
+.txtGWhite,
+.txtGCyan,
+.txtGMagenta,
+.txtGOrange {
+    background-color: #000000;
+    padding: 0;
+    margin: 0;
+}
+
+.txtFG {
+    color: #000000;
+}
+
+.txtGGreen,
+.txtBG {
+    color: #20c020;
+}
+
+.txtGYellow {
+    color: #c0c020;
+}
+
+.txtGBlue {
+    color: #2020C0;
+}
+
+.txtGRed {
+    color: #c02020;
+}
+
+.txtGWhite {
+    color: #c0c0c0;
+}
+
+.txtGCyan {
+    color: #20c0c0;
+}
+
+.txtGMagenta {
+    color: #c020c0;
+}
+
+.txtGOrange {
+    color: #a06020;
+}
+
+
+.watchWindow {
+    color: #c0c0c0;
+    background-color: #e0e0e0;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.25em;
+    vertical-align: baseline;
+    border-style: solid;
+    border-color: #c0c0c0;
+    border-width: 1px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    border-collapse: separate;
+    border-spacing: 0 0.25em;
+}
+
+.watchWindow>tbody {
+    display: flex;
+    flex-direction: row;
+}
+
+.watchWindow>tbody>tr {
+    display: flex;
+    flex-direction: column;
+}
+
+.watch-panel {
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+}
+
+.watchControl {
+    color: red;
+    background-color: orange;
+    font-weight: bold;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    cursor: pointer;
+}
+
+.watchControl:hover {
+    background-color: magenta;
+}
+
+.watchAddr {
+    color: #e0a020;
+    background-color: black;
+    font-weight: bold;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.watchHex {
+    background-color: black;
+    color: #e0a020;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.DSM {
+    color: #808080;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1em;
+    vertical-align: baseline;
+    border-style: solid;
+    border-color: #404040;
+    border-width: 1px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    padding: 0;
+}
+
+.DSMhi {
+    background-color: #107010;
+}
+
+.DSMlo {
+    background-color: #000000;
+}
+
+.DSM.ADDR {
+    color: #e0a020;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 3em;
+}
+
+.DSM.BYTES {
+    color: #e0a020;
+    font-size: 0.8em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 9em;
+
+}
+
+.DSM.MNEM {
+    color: #c0c0c0;
+    font-weight: bold;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 12em
+}
+
+.DSM.Edit {
+    color: #f02020;
+    background-color: #d0d0f0;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.cellEdit {
+    color: #2020F0;
+    background-color: #d0d0f0;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 0.8em;
+    width: 100%;
+}
+
+.usageNote {
+    font-size: 0.9em;
+    font-style: italic;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+.statusText {
+    color: #606060;
+    background-color: var(--bg-color);
+    border: 1px solid #404040;
+    font-size: 1em;
+    font-weight: bold;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    padding-left: 1em;
+    padding-right: 1em;
+
+}
+
+.panel {
+    background-color: var(--card-color);
+    padding: 0.5em;
+}
+
+.labelsContainer {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    height: 40em;
+    width: 12em;
+}
+
+.labelList {
+    flex-grow: 1;
+}
+
+.interrupts {
+    text-align: center;
+}
+
+.buttonRun {
+    background-color: #30d050;
+    border-radius: 16px;
+    border: 3px solid #18ab29;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 4px 32px;
+    text-decoration: none;
+    width: 100%;
+}
+
+.buttonRun:hover {
+    background-color: #5cbf2a;
+}
+
+.buttonRun:active {
+    position: relative;
+    top: 1px;
+}
+
+.buttonStep {
+    background-color: #c0c040;
+    border-radius: 8px;
+    border: 1px solid #808080;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 16px;
+    text-decoration: none;
+}
+
+.buttonStep:hover {
+    background-color: #e09030;
+}
+
+.buttonStep:active {
+    position: relative;
+    top: 1px;
+}
+
+.buttonHalt {
+    background-color: #e04040;
+}
+
+.buttonHalt:hover {
+    background-color: #e09030;
+}
+
+.buttonIRQ {
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 12px;
+    background-color: #6060c0;
+}
+
+.buttonIRQ:hover {
+    background-color: #4040e0;
+}
+
+.buttonReset {
+    font-size: 16px;
+    background-color: #a060c0;
+}
+
+.buttonReset:hover {
+    background-color: #6040e0;
+}
+
+.machinePanel {
+    background-color: var(--card-color);
+    vertical-align: top;
+    padding: 0.5em;
+}
+
+.machinePanel>#asm-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#bottom-panel {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr min-content min-content;
+    justify-content: space-between;
+    background-color: var(--bg-color);
+}
+
+.screenPanel {
+    vertical-align: top;
+    padding: 0.5em;
+    background-color: var(--bg-color);
+}
+
+.examplesList {
+    display: none;
+    position: absolute;
+    background-color: var(--bg-color);
+    color: #202020;
+    min-width: 8em;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
+    border: 1px solid black;
+    z-index: 1;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+
+}
+
+.dropDown {
+    position: relative;
+}
+
+.buttonExamples {
+    position: relative;
+    background-color: #c0c040;
+    border-radius: 4px;
+    border: 1px solid #808080;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 16px;
+    text-decoration: none;
+}
+
+.menuItem {
+    color: #4040c0;
+    margin: 0.25em;
+    padding: 0.25em;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.menuItem:hover {
+    background-color: #f8f8f8;
+}
+
+.dropDown:hover .examplesList {
+    display: block
+}
+
+.dropDown:hover .buttonExamples {
+    background-color: #e09030;
+}
+
+.txtScreenBorder {
+    border: 3px outset #d2c19c;
+    border-radius: 20px;
+    padding: 15px 15px 50px 15px;
+    background-color: #D6D0BC;
+}
+
+.txtScreen {
+    border-radius: 16px;
+    border: 3px inset #d2c19c;
+    background: #111;
+    padding: 1em;
+    font-family: Noto Sans Display;
+    font-size: 1em;
+    line-height: 1;
+    letter-spacing: 0.125em;
+}
+</style>
 
 </head>
 
-<body style='margin:1em'>
+<body>
 
-<h1>Motorola 6809 Emulator</h1>
-<p style='margin:0'>A single page assembler, disassembler, and emulator for entry-level tinkering with the 6809 CPU. See
-<a target='6809help' href='http://6809.ukdragons.org.uk/help.html'>full instructions</a>. Version 1.1.4.
-<a target="updates" href="http://6809.ukdragons.org.uk/notices.html">Updates and changes</a></p>
+<h1>COSC204: 6809 Emulator</h1>
+<p>A single page assembler, disassembler, and emulator for entry-level tinkering with the 6809 CPU. See
+<a target='6809help' href='./help.html'>full instructions</a>. Version 1.1.4.
+<a target="updates" href="/notices.html">Updates and changes</a></p>
 
-<table id='main-container' style='border-collapse:separate; border-spacing: 0.5em;'>
-    <tr>
-        <td class='machinePanel'>
+<div id='main-container'>
+        <div class='machinePanel'>
 
             <table id='registers-container' tabindex='0'>
                 <tr>
@@ -572,9 +616,9 @@
 
             </table>
 
-        </td>
+        </div>
 
-        <td class='machinePanel'>
+        <div class='machinePanel'>
 
             <h3>Disassembly output</h3>
 
@@ -586,9 +630,9 @@
             </p>
 
 
-        </td>
+        </div>
 
-        <td class='machinePanel'>
+        <div class='machinePanel'>
             <h3>Labels</h3>
 
             <div id='labelMap-container'></div>
@@ -597,166 +641,83 @@
                 Click on a label to display disassembled code starting at that address.
             </p>
 
-        </td>
+        </div>
 
 
-        <td class='machinePanel'>
+        <div class='machinePanel'>
 
-            <div style='width:max-content'>
-
-                <h3 style='float:left'>Assembly language input</h3>
-
-                <div style='float:right'>
-
-
+            <div id='asm-header'>
+                <h3 >Code Editor</h3>
+                <div>
                     <div class='dropDown' style='display:inline-block'>
 
                         <div class='examplesList' style='margin-top:1em; margin-left:2em;'>
                             <p class='menuItem'
-                               onclick="document.getElementById ('assembly-code').value=document.getElementById ('demo-checks').value">
+                               onclick="editor.setValue(document.getElementById ('demo-checks').value)">
                                 Check pattern</p>
                             <p class='menuItem'
-                               onclick="document.getElementById ('assembly-code').value=document.getElementById ('demo-hiscore').value">
+                               onclick="editor.setValue(document.getElementById ('demo-hiscore').value)">
                                 High scores</p>
                             <p class='menuItem'
-                               onclick="document.getElementById ('assembly-code').value=document.getElementById ('demo-plotpix').value">
+                               onclick="editor.setValue(document.getElementById ('demo-plotpix').value)">
                                 Pixel plot</p>
                             <p class='menuItem'
-                               onclick="document.getElementById ('assembly-code').value=document.getElementById ('demo-quickline').value">
+                               onclick="editor.setValue(document.getElementById ('demo-quickline').value)">
                                 Line draw</p>
                             <p class='menuItem'
-                               onclick="document.getElementById ('assembly-code').value=document.getElementById ('demo-life').value">
+                               onclick="editor.setValue(document.getElementById ('demo-life').value)">
                                 Game of Life</p>
                             <p class='menuItem'
-                               onclick="document.getElementById ('assembly-code').value=document.getElementById ('demo-sprite').value">
+                               onclick="editor.setValue(document.getElementById ('demo-sprite').value)">
                                 Sprites</p>
                             <p class='menuItem' style='color:#a0a0a0'>- - - - - - -</p>
                             <p class='menuItem'
-                               onclick="document.getElementById ('assembly-code').value=document.getElementById ('demo-helloworld').value">
+                               onclick="editor.setValue(document.getElementById ('demo-helloworld').value)">
                                 Hello World</p>
                             <p class='menuItem'
-                               onclick="document.getElementById ('assembly-code').value=document.getElementById ('demo-charset').value">
+                               onclick="editor.setValue(document.getElementById ('demo-charset').value)">
                                 Character set</p>
                             <p class='menuItem'
-                               onclick="document.getElementById ('assembly-code').value=document.getElementById ('demo-clearscr').value">
+                               onclick="editor.setValue(document.getElementById ('demo-clearscr').value)">
                                 Clear screen</p>
                             <p class='menuItem'
-                               onclick="document.getElementById ('assembly-code').value=document.getElementById ('demo-core6809').value">
+                               onclick="editor.setValue(document.getElementById ('demo-core6809').value)">
                                 Core OS</p>
                         </div>
 
-                        <button class='buttonExamples' style='margin-left:1em;'>Examples</button>
+                        <button class='buttonExamples'>Examples</button>
 
                     </div>
 
-                    <button onclick="document.getElementById ('assembly-code').value=''" class='buttonStep buttonHalt'
-                            style='margin-left:1em;'>Clear
-                    </button>
+                    <button onclick="editor.setValue('')" class='buttonStep buttonHalt'>Clear</button>
 
                 </div>
-
             </div>
 
-            <textarea id='assembly-code' name='assembly-code' rows='38' cols='60'>
-        ; pmode set x,y,c
+            <pre id='assembly-code' name='assembly-code' rows='38' cols='60'>;
+;  Enter your 6809 assembly here
+;
+screen EQU $0400    ; start of screen
+START:
+    ldy #message    ; get the address of the string
+    bsr PUTS        ; call puts to print it
+    rts             ; return to the OS
+PUTS:
+    pshs a,x,y      ; save a, x, and y
+    ldx #screen     ; start of screen
+MORE:
+    lda 0,y+        ; current char -> A (inc Y too)
+    cmpa #$00       ; was it a zero?
+    beq DONE        ; if it was 0 then return
+    sta 0,x+        ; write (inc X too)
+    bra MORE        ; repeat
+DONE:
+    puls a,x,y      ; restore a, x, y
+    rts             ; return from this routine
+message:
+    .byte "HELLO WORLD", $00 ; our dear string
 
-; entry
-; A is Y (0-191)
-; B is X (0-127)
-; Y is colour 0-7 (with 4 dithered colours)
-
-        org $4000
-start:
-        lda #73
-        ldb #127
-        ldy #3
-
-	; Initial part, normalise co-ordinates
-	; Want out pixel number 0-3
-	; Screen byte position 0-6143
-
-
-	pshs d	; save co-ordinates
-	andb #3	; get pixel number
-	stb ,s	; save it
-	ldb 1,s	; restore b
-	subb ,s ; ensure no carries out of the bottom of b
-
-	aslb 	; b <128 so no carry
-	rora	; join X + Y
-	rorb	; d = x + y * 128
-
-	rora
-	rorb	; d = x/2 + y * 64
-
-	rora
-	rorb	; d = x/4 + y * 32
-
-	tfr d,x	; x now has byte address
-	lda ,s++ ; stack restored, pix num in a
-
-; determine plot
-; get byte pixel pattern
-; and byte mask
-
-
-	leax $c00,x		; add screen base with dos
-	leau ptble,y	; pix table entry
-	andb #$20		; check for dither adjust
-	beq si			; if even line, skip increment
-	leau 8,u		; chose alternate dither entry
-
-si:
-	ldb ,u			; get pixel pattern
-	leay mtble,y	; get mask address
-	andb ,y  		; mask it
-
-; now	 x is screen address
-; 		 b is pixel pattern to add
-;		 need com of mask to clear screen byte
-
-	coma
-
-; plot
-
-;	x byte address
-;	b pixel value
-;	a clr screen pixel mask
-
-	anda ,x
-	sta <$0f	; ECB temporary result byte in direct
-	orb <$0f
-	stb ,x
-	rts
-
-
-mtble:
-	fcb $c0
-	fcb $30
-	fcb $0c
-	fcb $03
-
-ptble:
-	fcb $FF		; red
-	fcb $cc		; red / green
-	fcb $dd		; red / yellow
-	fcb $55		; yellow
-	fcb $11		; yellow / green
-	fcb $00		; green
-	fcb $88		; green / blue
-	fcb $99		; blue
-
-
-	fcb $FF
-	fcb $33		; green / red
-	fcb $77		; switched etc
-	fcb $55
-	fcb $44
-	fcb $00
-	fcb $22
-	fcb $99
-
-</textarea>
+</pre>
 
             <textarea id='demo-helloworld' rows='38' cols='60' style='display:none'>
 ;
@@ -1805,10 +1766,8 @@ vrestart: fdb hookrestart
 
 </textarea>
 
-
-            <br style='clear:both'/>
-            <div style='text-align:center'>
-                <button id="compileRun" onclick="compileRun('assembly-code');" class='buttonRun'>Assemble source code</button>
+            <div>
+                <button id="compileRun" onclick="compileRun(editor.getValue());" class='buttonRun'>Assemble source code</button>
                 <button onclick="codeDump('assembly-code');"
                         style='display:none; background-color: green; padding: 0.5em; border: 2px solid black; font-size: 1em; font-weight:bold'>
                     Dump object code
@@ -1818,58 +1777,41 @@ vrestart: fdb hookrestart
             <p class='usageNote'>
                 See the <a href='http://6809.uk/doc/doku.php?id=assembler_syntax'>assembler syntax reference</a> for full details.
             </p>
-        </td>
-
-
-    </tr>
-</table>
-
-<br style='clear:both'/>
-
-<div class='panel' style='width:max-content'>
-
-    <button onclick="addWatchpoint ('ea')" style='float:left'><b>Add memory watch point at last effective address</b>
-    </button>
-    <button onclick="addWatchpoint ('append')" style='margin-left: 2em'><b>Extend last memory watch point</b></button>
-    <button onclick="addWatchpoint ('x')" style='margin-left: 2em'><b>Add memory watch point at X</b></button>
-
-    <div id='watchWindow-container'>
+        </div>
 
     </div>
-    <p class='usageNote'>Left-click on a byte to set its value from register A, right-click from register B</p>
 
+<div id="bottom-panel">
+    <div class='watch-panel'>
+        <h3>Memory Watch Window</h3>
+        <div id='watchWindow-container'></div>
+        <button onclick="addWatchpoint ('ea')" ><b>Add memory watch point at last effective address</b></button>
+        <button onclick="addWatchpoint ('append')" ><b>Extend last memory watch point</b></button>
+        <button onclick="addWatchpoint ('x')" ><b>Add memory watch point at X</b></button>
+        <p class='usageNote'>Left-click on a byte to set its value from register A, right-click from register B</p>
+    
+    </div>
+
+    <div class='screenPanel'>
+        <h3>Text Monitor</h3>
+        <div class="txtScreenBorder">
+          <div id='txtScreenTable-container'>
+          </div>
+        </div>
+        <p class='usageNote' style='width:20em'>Text screen is 16 lines of 32 characters starting at address
+            $0400.</p>
+    </div>
+
+    <div class='screenPanel'>
+        <h3>Graphics screen</h3>
+        <div id='grphScreenHolder'>
+            <canvas id='graphicsScreen' width='512' height='384'></canvas>
+        </div>
+        <p class='usageNote' style='width:36em'>Graphics screen is (256*192 | 128*192 | 128*96) at (1 | 2 | 4)
+            bits per
+            pixel, starting at address $0600.</p>
+    </div>
 </div>
-
-<br style='clear:both'/>
-
-<div>
-    <table style='border-collapse:separate; border-spacing: 0.5em;'>
-        <tr>
-
-            <td class='screenPanel'>
-                <h3>Text screen</h3>
-                <div id='txtScreenTable-container'>
-                </div>
-                <p class='usageNote' style='width:20em'>Text screen is 16 lines of 32 characters starting at address
-                    $0400.</p>
-            </td>
-
-            <td class='screenPanel'>
-                <h3>Graphics screen</h3>
-                <div id='grphScreenHolder'>
-                    <canvas id='graphicsScreen' width='512' height='384'></canvas>
-                </div>
-                <p class='usageNote' style='width:36em'>Graphics screen is (256*192 | 128*192 | 128*96) at (1 | 2 | 4)
-                    bits per
-                    pixel, starting at address $0600.</p>
-            </td>
-
-        </tr>
-    </table>
-
-</div>
-
-<br style='clear:both'/>
 
 <p style='background-color:#e0e0e0; font-size:0.75em; margin-top:1em; margin-bottom:0; padding:0.25em; text-align:left'>
     <a href='http://6809.uk/'><i><b>6809.uk</b></i></a> design and coding &copy; Gwilym Thomas 2020 -
@@ -1878,6 +1820,52 @@ vrestart: fdb hookrestart
 
 <script src="../dist/bundle.js" type="application/javascript"></script>
 <script src="application.js" type="application/javascript"></script>
+
+<style>
+  #assembly-code { 
+      /* position: absolute; */
+      /* inset: 0 0 0 0; */
+      /* width: 100%; */
+      height: 500px;
+      width: 100%;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/ace.js" integrity="sha512-W2EhLZb9bxEATRhug+NU1OHCaM0hovRJbR7BvUNEytEWYJKxZiL4fGz3tiPpid0nycdwW7EnGlSonxvrs+EU6g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/snippets/assembly_x86.min.js" integrity="sha512-ZBAcfQAlkq4dnj6aN+EbVTEUQIDZdup6CFO4YkSDCdkmM3cvsFFcp3p6ifel6ZJdU+0EEd/sYvUK1Mibxd6VCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/mode-assembly_x86.min.js" integrity="sha512-A/EHelWJGbZmxSE/UXW6WOQAHsBsfVl8bV+fgbSbXq2pnXwSagrYqy7vOEFWmIryj67jNkZ/lh+OB6iKzNT8fQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/ext-language_tools.min.js" integrity="sha512-RGk7RE24X2xz3w6IFFmXLosDbgKCYPsnFEqVq3UXiHyNevn74G4zTUFbaM8Hj+L/7F5Nywznl7xCDSZm40EJOQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/ext-inline_autocomplete.min.js" integrity="sha512-sPuP7pDhfbrm8j1zzArS30iR/EB2dyrYZwD9wmjy5B/nfpmrKW8XSVPWgtLa+ZPGoHSSGlR1KpIozeVUZMckng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  editor = ace.edit("assembly-code");
+  editor.setTheme("ace/theme/tomorrow_night");
+  editor.session.setMode("ace/mode/assembly_x86");
+
+  // use setOptions method to set several options at once
+  editor.setOptions({
+      autoScrollEditorIntoView: true,
+      copyWithEmptySelection: true,
+      fontSize: 16,
+      tabSize: 4,
+      wrap: true,
+      showGutter: true,
+      showLineNumbers: true,
+      highlightActiveLine: true,
+      highlightSelectedWord: true,
+      showPrintMargin: false,
+      enableBasicAutocompletion: true,
+      enableInlineAutocompletion: true,
+      enableSnippets: true,
+      enableLiveAutocompletion: true,
+      enableAutoIndent: true,
+
+
+  });
+  // use setOptions method
+  editor.setOption("mergeUndoDeltas", "always");
+  // console.error(code);
+
+</script>
 
 </body>
 
