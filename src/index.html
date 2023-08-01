@@ -1348,11 +1348,10 @@ vrestart: fdb hookrestart
       width: 100%;
     }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/ace.js" integrity="sha512-W2EhLZb9bxEATRhug+NU1OHCaM0hovRJbR7BvUNEytEWYJKxZiL4fGz3tiPpid0nycdwW7EnGlSonxvrs+EU6g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/snippets/assembly_x86.min.js" integrity="sha512-ZBAcfQAlkq4dnj6aN+EbVTEUQIDZdup6CFO4YkSDCdkmM3cvsFFcp3p6ifel6ZJdU+0EEd/sYvUK1Mibxd6VCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/mode-assembly_x86.min.js" integrity="sha512-A/EHelWJGbZmxSE/UXW6WOQAHsBsfVl8bV+fgbSbXq2pnXwSagrYqy7vOEFWmIryj67jNkZ/lh+OB6iKzNT8fQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/ext-language_tools.min.js" integrity="sha512-RGk7RE24X2xz3w6IFFmXLosDbgKCYPsnFEqVq3UXiHyNevn74G4zTUFbaM8Hj+L/7F5Nywznl7xCDSZm40EJOQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/ext-inline_autocomplete.min.js" integrity="sha512-sPuP7pDhfbrm8j1zzArS30iR/EB2dyrYZwD9wmjy5B/nfpmrKW8XSVPWgtLa+ZPGoHSSGlR1KpIozeVUZMckng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="ace/ace.js"></script>
+<script src="ace/ext-language_tools.js"></script>
+<script src="ace/ext-inline_autocomplete.js"></script>
+<script src="ace/mode-assembly_6809.js"></script>
 
 <script>
   // check browser default
@@ -1382,7 +1381,7 @@ vrestart: fdb hookrestart
   }
   // Ace Editor
   editor = ace.edit("assembly-code");
-  editor.session.setMode("ace/mode/assembly_x86");
+  editor.session.setMode("ace/mode/assembly_6809");
   if (currentTheme && currentTheme == 'light') {
     editor.setTheme("ace/theme/tomorrow");
   } else {
@@ -1405,6 +1404,7 @@ vrestart: fdb hookrestart
     enableLiveAutocompletion: true,
     enableAutoIndent: true,
     mergeUndoDeltas: true,
+    
   });
   
   // save to localStorage
