@@ -33,7 +33,7 @@ function signedHex(n, bits, symbol) {
   }
 }
 
-const tracing = 1;
+const tracing = 0;
 
 const logger = winston.createLogger({
   level: 'info',

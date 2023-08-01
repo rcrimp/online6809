@@ -101,7 +101,7 @@ function DSMWindow(id, cpu, rows) {
       trc('Found container, rows', this.rowCount);
       this.table = document.createElement('table');
       this.table.setAttribute('id', 'tableId');
-      this.table.style.backgroundColor = 'black';
+      // this.table.style.backgroundColor = 'black';
       this.table.className = 'DSM';
       for (rowNo = 1; rowNo <= this.rowCount; rowNo++) {
         trc('newRow', rowNo);
