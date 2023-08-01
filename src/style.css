@@ -1,0 +1,600 @@
+:root {
+    --primary-color: rgb(65, 134, 201);
+    --font-color: #bebebe;
+    --bg-color: #1D1F21;
+    --card-color: #25282C;
+    --dissassembly-color: #1D1F21;
+}
+
+[data-theme="light"] {
+    --primary-color: rgb(65, 134, 201);
+    --font-color: black;
+    --bg-color: white;
+    --card-color: #f4f4f4;
+    --dissassembly-color: black;
+
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    padding: 0;
+    margin: 0;
+}
+
+#main-container {
+    display: grid;
+    grid-template-columns: min-content fit-content(500px) min-content 1fr;
+}
+
+h1 {
+    /* color: #808080; */
+    margin-top: 0;
+    margin-bottom: 0.25em;
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+}
+
+.controlCaption {
+    color: #e0a020;
+    font-weight: bold;
+}
+
+.anydig {
+    font-family: monospace, Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 2px;
+    background-color: var(--bg-color);
+    border: 1px solid #0005;
+}
+
+.anydig.hex {
+    font-size: 1.5em;
+}
+
+.anydig.hex.big {
+    font-size: 2.5em;
+}
+
+.anydig.bin {
+    font-size: 0.66em;
+}
+
+.anydig.flag {
+    font-size: 0.8em;
+}
+
+.anydig.label {
+    font-size: 0.8em;
+}
+
+.reglabel {
+    text-align: center;
+    font-size: 1.25em;
+    font-weight: bold;
+    color: #e0a020;
+}
+
+.regitem {
+    margin: 0 auto;
+}
+
+.txtScreen {
+    font-family: monospace, Arial, sans-serif;
+    border-spacing: 0;
+}
+
+.txtFG,
+.txtBG {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.6em;
+    padding: 0;
+    margin: 0;
+}
+
+.txtGGreen,
+.txtGYellow,
+.txtGBlue,
+.txtGRed,
+.txtGWhite,
+.txtGCyan,
+.txtGMagenta,
+.txtGOrange {
+    padding: 0;
+    margin: 0;
+    line-height: 1.6em;
+}
+.txtFG {
+    color: #000000;
+    background-color: #20c020;
+}
+
+.txtGGreen,
+.txtBG {
+    color: #20c020;
+}
+
+.txtGYellow {
+    color: #c0c020;
+}
+
+.txtGBlue {
+    color: #2020C0;
+}
+
+.txtGRed {
+    color: #c02020;
+}
+
+.txtGWhite {
+    color: #c0c0c0;
+}
+
+.txtGCyan {
+    color: #20c0c0;
+}
+
+.txtGMagenta {
+    color: #c020c0;
+}
+
+.txtGOrange {
+    color: #a06020;
+}
+
+
+.watchWindow {
+    color: var(--font-color);
+    background-color: var(--bg-color);
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.25em;
+    vertical-align: baseline;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    border-collapse: separate;
+    border-spacing: 0 0.25em;
+}
+
+.watch-panel button {
+    background-color: #e0a020;
+    cursor: pointer;
+    border-radius: 16px;
+    border: 3px solid #bc7e02;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    padding: 4px;
+    text-decoration: none;
+}
+
+.watchWindow>tbody {
+    display: flex;
+    flex-direction: row;
+}
+
+.watchWindow>tbody>tr {
+    display: flex;
+    flex-direction: column;
+}
+
+.watch-panel {
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+}
+
+.watchControl {
+    color: red;
+    background-color: orange;
+    font-weight: bold;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    cursor: pointer;
+}
+
+.watchControl:hover {
+    background-color: white;
+}
+
+.watchAddr {
+    color: #e0a020;
+    background-color: black;
+    font-weight: bold;
+    padding: 0.25em;
+}
+
+.watchHex {
+    background-color: black;
+    color: #e0a020;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+#DSMTable-container {
+    background-color: var(--dissassembly-color);
+}
+
+.DSM {
+    color: #808080;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1em;
+    vertical-align: baseline;
+    border-style: solid;
+    border-color: #404040;
+    border-width: 1px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    padding: 0;
+}
+
+.DSMhi {
+    background-color: #107010;
+}
+
+.DSMlo {
+    /* background-color: #000000; */
+}
+
+.DSM.ADDR {
+    color: #e0a020;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 3em;
+}
+
+.DSM.BYTES {
+    color: #e0a020;
+    font-size: 0.8em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 9em;
+
+}
+
+.DSM.MNEM {
+    color: #c0c0c0;
+    font-weight: bold;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 12em
+}
+
+.DSM.Edit {
+    color: #f02020;
+    background-color: #d0d0f0;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.cellEdit {
+    color: #2020F0;
+    background-color: #d0d0f0;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 0.8em;
+    width: 100%;
+}
+
+.usageNote {
+    font-size: 0.9em;
+    font-style: italic;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+.statusText {
+    color: #606060;
+    background-color: var(--bg-color);
+    border: 1px solid #404040;
+    font-size: 1em;
+    font-weight: bold;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    padding-left: 1em;
+    padding-right: 1em;
+
+}
+
+.panel {
+    background-color: var(--card-color);
+    padding: 0.5em;
+}
+
+.labelsContainer {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    height: 40em;
+    width: 12em;
+    color: var(--font-color);
+    background-color: var(--bg-color);
+}
+
+.labelList {
+    flex-grow: 1;
+}
+
+.interrupts {
+    text-align: center;
+}
+
+.buttonRun {
+    background-color: #30d050;
+    border-radius: 16px;
+    border: 3px solid #18ab29;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 4px 32px;
+    text-decoration: none;
+    width: 100%;
+}
+
+.buttonRun:hover {
+    background-color: #5cbf2a;
+}
+
+.buttonRun:active {
+    position: relative;
+    top: 1px;
+}
+
+.buttonStep {
+    background-color: #c0c040;
+    border-radius: 8px;
+    border: 1px solid #808080;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 16px;
+    text-decoration: none;
+}
+
+.buttonStep:hover {
+    background-color: #e09030;
+}
+
+.buttonStep:active {
+    position: relative;
+    top: 1px;
+}
+
+.buttonHalt {
+    background-color: #e04040;
+}
+
+.buttonHalt:hover {
+    background-color: #e09030;
+}
+
+.buttonIRQ {
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 12px;
+    background-color: #6060c0;
+}
+
+.buttonIRQ:hover {
+    background-color: #4040e0;
+}
+
+.buttonReset {
+    font-size: 16px;
+    background-color: #a060c0;
+}
+
+.buttonReset:hover {
+    background-color: #6040e0;
+}
+
+.machinePanel {
+    background-color: var(--card-color);
+    vertical-align: top;
+    padding: 0.5em;
+}
+
+.machinePanel>#asm-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#bottom-panel {
+    width: 100%;
+    display: grid;
+    grid-template-columns: min-content 1fr min-content;
+    justify-content: space-between;
+    background-color: var(--bg-color);
+}
+
+.screenPanel {
+    vertical-align: top;
+    padding: 0.5em;
+    background-color: var(--bg-color);
+}
+
+.examplesList {
+    display: none;
+    position: absolute;
+    background-color: var(--bg-color);
+    color: #202020;
+    min-width: 8em;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    text-shadow: none;
+    border: 1px solid black;
+    z-index: 1;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+
+}
+
+.dropDown {
+    position: relative;
+}
+
+.buttonExamples {
+    position: relative;
+    background-color: #c0c040;
+    border-radius: 4px;
+    border: 1px solid #808080;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 16px;
+    text-decoration: none;
+}
+
+.menuItem {
+    color: #4040c0;
+    margin: 0.25em;
+    padding: 0.25em;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.menuItem:hover {
+    background-color: #f8f8f8;
+}
+
+.dropDown:hover .examplesList {
+    display: block
+}
+
+.dropDown:hover .buttonExamples {
+    background-color: #e09030;
+}
+
+.txtScreenBorder {
+    border: 3px outset #d2c19c;
+    border-radius: 20px;
+    padding: 15px 15px 20px 15px;
+    background-color: #D6D0BC;
+}
+
+#txtScreenLabel {
+    width: 100%;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.5)
+}
+
+.txtScreen {
+    border-radius: 16px;
+    border: 3px inset #d2c19c;
+    background: black;
+    padding: 1em;
+    font-family: Noto Sans Display;
+    font-size: 1em;
+    line-height: 1;
+    letter-spacing: 0.125em;
+}
+
+footer {
+    text-align: center;
+    font-size: 0.8em;
+    color: #808080;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+    margin: 0;
+    padding: 0.5em;
+    padding-bottom: 0;
+    color: white;
+}
+header p {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0.5em;
+    font-size: 0.8em;
+}
+
+.theme-switch-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.theme-switch-wrapper .theme-switch {
+    display: inline-block;
+    height: 24px;
+    position: relative;
+    width: 48px;
+    cursor: pointer;
+}
+
+.theme-switch-wrapper .theme-switch input {
+    display: none;
+}
+
+.theme-switch-wrapper .slider {
+    background-color: lightgray;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.theme-switch-wrapper .slider:before {
+    background-color: #ffffff;
+    bottom: 4px;
+    content: "";
+    height: 16px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 16px;
+    border-radius: 50%;
+}
+
+.theme-switch-wrapper input:checked+.slider {
+    background-color: #25282C;
+}
+
+.theme-switch-wrapper input:checked+.slider:before {
+    transform: translateX(24px);
+}
+
+.theme-switch-wrapper .slider.round {
+    border-radius: 34px;
+}
+
+.theme-switch-wrapper .slider.round:before {
+    border-radius: 50%;
+}
+
+.theme-switch-wrapper em {
+    margin-left: 10px;
+    font-size: 14px;
+    font-style: italic;
+}

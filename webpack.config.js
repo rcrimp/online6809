@@ -9,6 +9,14 @@ module.exports = {
   entry: {
     emulator: './src/emulator.js',
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
   output: {
     path: resolve(__dirname, 'dist'),
     filename: 'bundle.js',

@@ -22,6 +22,7 @@ import {
 import {inHex, trc} from './helper';
 import {Memory8} from './memory8';
 import {Assembler} from './assembler';
+import './style.css';
 
 /**
  * Convert number to 0 padded string.
