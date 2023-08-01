@@ -31,7 +31,7 @@ import {Assembler} from './assembler';
  * @return {string}
  */
 function inBinary(n, l) {
-  let s = n.toString();
+  let s = n.toString(2);
   while (s.length < l) {
     s = '0' + s;
   }
