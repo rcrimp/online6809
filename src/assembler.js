@@ -1381,9 +1381,9 @@ export class Assembler {
       let word = nextByte(assembler);
       if (bits16) {
         word = (word << 8) | nextByte(assembler);
-        return labelled(assembler.mapAddrs, parseInt(inHex(word, 4)), prefix);
+        return labelled(assembler.mapAddrs, inHex(word, 4), prefix);
       } else {
-        return labelled(assembler.mapAddrs, parseInt(inHex(word, 2)), prefix);
+        return labelled(assembler.mapAddrs, inHex(word, 2), prefix);
       }
     }
 
@@ -1484,8 +1484,7 @@ export class Assembler {
       if (!bits16) {
         d |= (offset & 0x80) !== 0 ? 0xff00 : 0;
       }
-      return labelled(
-          assembler.mapAddrs, parseInt(inHex((pc + d) & 0xffff, 4)), '$');
+      return labelled(assembler.mapAddrs, inHex((pc + d) & 0xffff, 4), '$');
     }
 
     /**
