@@ -331,26 +331,37 @@ h3 {
     text-align: center;
 }
 
-.buttonRun {
-    background-color: #30d050;
+#code-buttons {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    gap: 10px;
+}
+
+.buttonRun, #download {
     border-radius: 16px;
-    border: 3px solid #18ab29;
     display: inline-block;
     cursor: pointer;
     color: #ffffff;
+    padding: 10px;
+    text-align: center;
     font-family: Arial, sans-serif;
-    font-size: 20px;
     font-weight: bold;
-    padding: 4px 32px;
     text-decoration: none;
-    width: 100%;
 }
-
+.buttonRun{
+    font-size: 20px;
+    background-color: #30d050;
+    border: 3px solid #18ab29;
+}
+#download {
+    font-size: 15px;
+    background-color: var(--primary-color);
+    border: 3px solid #0e6ea8;
+}
 .buttonRun:hover {
     background-color: #5cbf2a;
 }
-
-.buttonRun:active {
+.buttonRun:active, #download:active {
     position: relative;
     top: 1px;
 }
