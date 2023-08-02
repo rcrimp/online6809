@@ -1,3 +1,4 @@
+# documentation found online for 6809 assembly
 OP_DOC = {
     "ABX": {
         "condition code": "Not affected.",
@@ -1007,7 +1008,58 @@ OP_DOC = {
 
 import json
 
-jsonObject = {}
+# manually included assembler directives
+jsonObject = {
+    "CONST": {
+        'instr_desc': 'Numeric Constant',
+        'description': 'Numbers are in decimal by default. Specify hexadecimal values by preceding the digits by the $ symbol. Also the C standard 0x format is recognised. For binary precede the digits by the % symbol. Positive and negative numbers are preceded by the + and - symbols respectively. Constants and labels can be chained together with simple arithmetic (just plus and minus).',
+        'comment': 'CONST asciiZero=48',
+    },
+    "EQU": {
+        'instr_desc': 'Declare a constant value.',
+        'description': 'Short for “equate”, this must be used with a label and defines a symbol with the specified value. This may be any single valid argument (e.g. an expression or a string).',
+        'comment': 'label EQU value',
+    },
+    "RMB": {
+        'instr_desc': 'Reserve Memory Bytes',
+        'description': 'Reserve Memory Bytes. The Program Counter is advanced count bytes. In some output formats this region may be padded with zeroes, in others a new loadable section may be created.',
+        'comment': 'RMB count',
+    },
+    "DSR": {},
+    "BYTE": {
+        'instr_desc': 'Define Byte(s)',
+        'description': "Takes as an argument a comma-separated list of values, and instruct the assembler to include as bytes in the code. Numeric values, labels, or strings can be mixed. Strings should be in double quotes, though single quotes are accepted.",
+        'comment': 'label .byte value[,value]',
+    },
+    "DW": {},
+    "DB": {},
+    "FCB": {
+        'instr_desc': 'Format Constant Byte',
+        'description': "Takes as an argument a comma-separated list of values, and instruct the assembler to include as bytes in the code. Numeric values, labels, or strings can be mixed. Strings should be in double quotes, though single quotes are accepted.",
+        'comment': 'label FCB value[,value]',
+    },
+    "FCC": {
+        'instr_desc': 'Format Constant Character (string)',
+        'description': "Takes as an argument a comma-separated list of values, and instruct the assembler to include as bytes in the code. Numeric values, labels, or strings can be mixed. Strings should be in double quotes, though single quotes are accepted.",
+        'comment': 'Historically, FCB handled bytes and FCC (Form Constant Character string) handled strings. asm6809 treats them as synonymous, but is rather more strict about what is allowed as a string delimiter.',
+    },
+    "SETDP": {
+        'instr_desc': 'Sets the Direct Page register',
+        'description': 'Set the assumed value of the Direct Page (DP) register to page for subsequent instructions. Any non-negative page is truncated to 8 bits, or specify a negative number to disable automatic direct addressing.',
+        'comment': 'SETDP page',
+    },
+    "DIRECT": {
+        'instr_desc': 'Sets the Direct Page register',
+        'description': 'Set the assumed value of the Direct Page (DP) register to page for subsequent instructions. Any non-negative page is truncated to 8 bits, or specify a negative number to disable automatic direct addressing.',
+        'comment': 'SETDP page',
+    },
+    "VAL": {},
+    "ORG": {
+        'instr_desc': 'Organise Code Section',
+        'description': "Sets the Program Counter—the base address assumed for the next assembled instruction. Unless followed by a PUT pseudo-op, this will also be the instruction's actual address in memory. A label on the same line will define a symbol with a value of the specified address.",
+        'comment': 'ORG address',
+    },
+}
 
 # iterate through dictionary
 for key, value in OP_DOC.items():
