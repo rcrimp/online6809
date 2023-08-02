@@ -1,6 +1,28 @@
 import winston from 'winston';
 import 'setimmediate';
 
+function parseOperand(str) {
+  const c = str[0]; // $ for hex, % for binary, otherwise decimal
+  let number = NaN;
+  switch (c) {
+    case '$':
+      number = parseInt(str.substring(1), 16);
+      break;
+    case '%':
+      number = parseInt(str.substring(1), 2);
+      break;
+    default:
+      number = parseInt(str);
+      break;
+  }
+  if (isNaN(number)) {
+    console.log('Invalid operand: ' + str);
+    return 0;
+  }
+  return number;
+
+}
+
 /**
  * Convert decimal to hexadecimal.
  *
@@ -77,4 +99,4 @@ function plural(word, n, wordPlural) {
   }
 }
 
-export {inHex, signedHex, trc, plural};
+export {inHex, signedHex, trc, plural, parseOperand};

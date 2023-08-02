@@ -7,7 +7,7 @@ import {
   modesText, pairRegsToText,
   pairRegsToValue,
 } from './constants';
-import {inHex, plural, signedHex, trc} from './helper';
+import {inHex, plural, signedHex, trc, parseOperand} from './helper';
 import {Memory8} from './memory8';
 
 /**
@@ -500,8 +500,18 @@ export class Assembler {
       }
       if (matches !== null) {
         this.#encodeString(encoding, matches[1]);
+        console.log('!matches', encoding, matches[1])
       } else {
-        this.#encodeValue(encoding, parseInt(item), bits);
+        let number = '0'
+        if (item[0] == '$') {
+          number = parseInt(item.substring(1), 16)
+        } else if (item[0] == '%') {
+          number = parseInt(item.substring(1), 2)
+        } else {
+          number = parseInt(item)
+        }
+        this.#encodeValue(encoding, parseOperand(item), bits);
+        console.log('!else', encoding, parseOperand(item), number, bits);
       }
     }
   };
