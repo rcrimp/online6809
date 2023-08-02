@@ -84,70 +84,6 @@ h3 {
     margin: 0 auto;
 }
 
-.txtScreen {
-    font-family: monospace, Arial, sans-serif;
-    border-spacing: 0;
-}
-
-.txtFG,
-.txtBG {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.6em;
-    padding: 0;
-    margin: 0;
-}
-
-.txtGGreen,
-.txtGYellow,
-.txtGBlue,
-.txtGRed,
-.txtGWhite,
-.txtGCyan,
-.txtGMagenta,
-.txtGOrange {
-    padding: 0;
-    margin: 0;
-    line-height: 1.6em;
-}
-.txtFG {
-    color: #000000;
-    background-color: #20c020;
-}
-
-.txtGGreen,
-.txtBG {
-    color: #20c020;
-}
-
-.txtGYellow {
-    color: #c0c020;
-}
-
-.txtGBlue {
-    color: #2020C0;
-}
-
-.txtGRed {
-    color: #c02020;
-}
-
-.txtGWhite {
-    color: #c0c0c0;
-}
-
-.txtGCyan {
-    color: #20c0c0;
-}
-
-.txtGMagenta {
-    color: #c020c0;
-}
-
-.txtGOrange {
-    color: #a06020;
-}
-
-
 .watchWindow {
     color: var(--font-color);
     background-color: var(--bg-color);
@@ -337,7 +273,8 @@ h3 {
     gap: 10px;
 }
 
-.buttonRun, #download {
+.buttonRun,
+#download {
     border-radius: 16px;
     display: inline-block;
     cursor: pointer;
@@ -348,20 +285,25 @@ h3 {
     font-weight: bold;
     text-decoration: none;
 }
-.buttonRun{
+
+.buttonRun {
     font-size: 20px;
     background-color: #30d050;
     border: 3px solid #18ab29;
 }
+
 #download {
     font-size: 15px;
     background-color: var(--primary-color);
     border: 3px solid #0e6ea8;
 }
+
 .buttonRun:hover {
     background-color: #5cbf2a;
 }
-.buttonRun:active, #download:active {
+
+.buttonRun:active,
+#download:active {
     position: relative;
     top: 1px;
 }
@@ -498,30 +440,6 @@ h3 {
     background-color: #e09030;
 }
 
-.txtScreenBorder {
-    border: 3px outset #d2c19c;
-    border-radius: 20px;
-    padding: 15px 15px 20px 15px;
-    background-color: #D6D0BC;
-}
-
-#txtScreenLabel {
-    width: 100%;
-    text-align: right;
-    color: rgba(0, 0, 0, 0.5)
-}
-
-.txtScreen {
-    border-radius: 16px;
-    border: 3px inset #d2c19c;
-    background: black;
-    padding: 1em;
-    font-family: Noto Sans Display;
-    font-size: 1em;
-    line-height: 1;
-    letter-spacing: 0.125em;
-}
-
 footer {
     text-align: center;
     font-size: 0.8em;
@@ -539,6 +457,7 @@ header {
     padding-bottom: 0;
     color: white;
 }
+
 header p {
     margin: 0;
     padding: 0;
@@ -608,4 +527,117 @@ header p {
     margin-left: 10px;
     font-size: 14px;
     font-style: italic;
+}
+
+
+#txtScreenTable-container {
+    background:
+    linear-gradient(90deg, rgba(255, 0, 0, 0.25), rgba(0, 255, 0, 0.15), rgba(0, 0, 255, 0.25)),
+    linear-gradient(rgb(25, 25, 25) 50%, rgba(0, 0, 0) 50%);
+    background-size: 3px 100%, 100% 4px;
+    border-radius: 20px;
+    /* animation-duration: 0.1s; */
+    --crt-bleed-left: #7075ff88;
+    --crt-bleed-right: #ea36af88;
+    text-shadow: 0.06rem 0 0.06rem var(--crt-bleed-left), -0.125rem 0 0.06rem var(--crt-bleed-right);
+    animation-duration: 0.05s;
+    animation-name: textflicker;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+#txtScreenTable-container table {
+    background: radial-gradient(transparent 60%, black);
+    border-radius: 16px;
+    border: 3px inset #d2c19c;
+    padding: 1em;
+    /* font-family: Noto Sans Display; */
+    font-size: 1em;
+    line-height: 1;
+    letter-spacing: 0.125em;
+    /* filter: blur(0.1px); */
+}
+.txtScreenBorder {
+    border: 3px outset #d2c19c;
+    border-radius: 20px;
+    padding: 15px 15px 20px 15px;
+    background-color: #D6D0BC;
+}
+#txtScreenLabel {
+    width: 100%;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.5)
+}
+
+@keyframes textflicker {
+    from {
+        /* text-shadow: 2px 0px 0 var(--crt-bleed-left), -4px 0px 0 var(--crt-bleed-right); */
+    }
+    to {
+        /* text-shadow: 2px 0.5px 2px var(--crt-bleed-left), -1px -0.5px 2px var(--crt-bleed-right); */
+    }
+}
+.txtScreen td {
+    font-family: 'VT323', monospace !important;
+    /* font-size: 2em; */
+    padding: 0 1px;
+    /* border-spacing: 0; */
+}
+
+.txtFG,
+.txtBG {
+    /* font-family: 'Courier New', Courier, monospace; */
+    font-size: 1.8em;
+    padding: 0;
+    margin: 0;
+}
+
+.txtGGreen,
+.txtGYellow,
+.txtGBlue,
+.txtGRed,
+.txtGWhite,
+.txtGCyan,
+.txtGMagenta,
+.txtGOrange {
+    padding: 0;
+    margin: 0;
+    line-height: 1.8em;
+}
+
+.txtFG {
+    color: #000000;
+    background-color: #20c020;
+}
+
+.txtGGreen,
+.txtBG {
+    color: #20c020;
+}
+
+.txtGYellow {
+    color: #c0c020;
+}
+
+.txtGBlue {
+    color: #2020C0;
+}
+
+.txtGRed {
+    color: #c02020;
+}
+
+.txtGWhite {
+    color: #c0c0c0;
+}
+
+.txtGCyan {
+    color: #20c0c0;
+}
+
+.txtGMagenta {
+    color: #c020c0;
+}
+
+.txtGOrange {
+    color: #a06020;
 }
