@@ -641,3 +641,13 @@ header p {
 .txtGOrange {
     color: #a06020;
 }
+
+.ace_tooltip p {
+    margin: 0;
+    padding: 0;
+}
+.ace_tooltip p:first-child {
+    margin-bottom: 0.5em;
+    font-weight: 500;
+    font-size: 1.3em;
+}

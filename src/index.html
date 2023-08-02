@@ -1449,9 +1449,58 @@ vrestart: fdb hookrestart
           alert( "Something went wrong? Ask Reuben haha." );
         }
 }
+</script>
+<script src="assembly_6809_docs.js"></script>
+<script>
+  function updateTooltip(position, title, message){
+	//example with container creation via JS
+	var div = document.getElementById('tooltip_0');
+	if(div === null){
+		div = document.createElement('div');		
+		div.setAttribute('id', 'tooltip_0'); 
+    div.classList.add('ace_tooltip');
+    if (currentTheme && currentTheme == 'dark')
+      div.classList.add('ace_dark');
+    let p1 = document.createElement('p');
+    div.appendChild(p1);
+    let p2 = document.createElement('p');
+    div.appendChild(p2);          	
+		document.body.appendChild(div);
+	}
 
-  
-
+	div.style.left = (position.pageX - div.offsetWidth/2) + 'px';
+	div.style.top = position.pageY + 'px';
+	if(title && message){
+		div.style.display = "block";
+		div.childNodes[0].innerText = title;
+    div.childNodes[1].innerText = message;
+	}else{
+		div.style.display = "none";
+		div.childNodes[0].innerText = "";
+    div.childNodes[1].innerText = "";
+	}	
+}
+//adding a tooltip
+editor.on("mousemove", function (e){
+	var position = e.getDocumentPosition();
+	if(position){
+	//console.log("mouse " + position.row + ", " + position.column);
+		var wordRange = editor.getSession().getWordRange(position.row, position.column);
+    var token = editor.session.getTokenAt(position.row, position.column);
+    let whitespaceRegex = /^\s*$/;
+    const supportedTokens = ['keyword.control.assembly', 'support.function.directive.assembly']
+    if (token.type && supportedTokens.includes(token.type)) {
+      const docs = getDocumentation(token.value);
+      const title = `${token.value.toUpperCase()}: ${docs.instr_desc}`;
+      const message = `${docs.description}${docs.comment ? '\n\n' + docs.comment : ''}`;
+      var pixelPosition = editor.renderer.textToScreenCoordinates(position);
+      pixelPosition.pageY += editor.renderer.lineHeight;
+      updateTooltip(pixelPosition, title, message);
+    } else {
+      updateTooltip(editor.renderer.textToScreenCoordinates(position));
+    }
+	}
+});
 </script>
 
 </body>
