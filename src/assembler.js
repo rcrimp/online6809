@@ -500,18 +500,8 @@ export class Assembler {
       }
       if (matches !== null) {
         this.#encodeString(encoding, matches[1]);
-        console.log('!matches', encoding, matches[1])
       } else {
-        let number = '0'
-        if (item[0] == '$') {
-          number = parseInt(item.substring(1), 16)
-        } else if (item[0] == '%') {
-          number = parseInt(item.substring(1), 2)
-        } else {
-          number = parseInt(item)
-        }
         this.#encodeValue(encoding, parseOperand(item), bits);
-        console.log('!else', encoding, parseOperand(item), number, bits);
       }
     }
   };

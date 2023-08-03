@@ -1,27 +1,33 @@
 import winston from 'winston';
 import 'setimmediate';
 
-function parseOperand(str) {
-  const c = str[0]; // $ for hex, % for binary, otherwise decimal
-  let number = NaN;
-  switch (c) {
-    case '$':
-      number = parseInt(str.substring(1), 16);
-      break;
-    case '%':
-      number = parseInt(str.substring(1), 2);
-      break;
-    default:
-      number = parseInt(str);
-      break;
-  }
-  if (isNaN(number)) {
-    console.log('Invalid operand: ' + str);
-    return 0;
-  }
-  return number;
+/**
+ * Parses the given string (operand) in hex, binary, or decimal.
+ * Hex values starts with '$', binary start with '%', decimal number otherwise.
+ *
+ * @param {string} str Operand string to parse
+ * @return {number} The parsed number, or 0 if the input is not a valid number format
+ */
 
+function parseOperand(str) {
+  str = str.trim().replace(/^[\s,:]+|[\s,:]+$/g, '');
+
+  const rHex = /^\$[0-9A-Fa-f]+/ // $0F
+  const rDec = /^[0-9]+/ // 15
+  const rBin = /^%[01]+/ // %1111
+
+  if (rHex.test(str)) {
+    return parseInt(str.substring(1), 16);
+  } else if (rBin.test(str)) {
+    return parseInt(str.substring(1), 2);
+  } else if (rDec.test(str)) {
+    return parseInt(str);
+  }
+
+  console.error('Unable to parse operand: ' + str);
+  return 0;
 }
+
 
 /**
  * Convert decimal to hexadecimal.
