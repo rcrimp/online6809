@@ -1489,7 +1489,7 @@ editor.on("mousemove", function (e){
     var token = editor.session.getTokenAt(position.row, position.column);
     let whitespaceRegex = /^\s*$/;
     const supportedTokens = ['keyword.control.assembly', 'support.function.directive.assembly']
-    if (token.type && supportedTokens.includes(token.type)) {
+    if (token && supportedTokens.includes(token.type)) {
       const docs = getDocumentation(token.value);
       const title = `${token.value.toUpperCase()}: ${docs.instr_desc}`;
       const message = `${docs.description}${docs.comment ? '\n\n' + docs.comment : ''}`;
