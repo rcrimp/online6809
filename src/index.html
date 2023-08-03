@@ -1320,7 +1320,19 @@ vrestart: fdb hookrestart
         <button onclick="addWatchpoint ('ea')" ><b>Add window at last effective address</b></button>
     
     </div>
-
+    
+    <script src="https://npmcdn.com/regl@1.3.9/dist/regl.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.7.1/gl-matrix-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/onecolor/3.1.0/one-color-all.js"></script>
+    <script defer src="webgl-crt.js"></script>
+    <div class='screenPanel'>
+      <div id="webgl-crt">
+        <canvas width="640" height="480"></canvas>
+        <h3 id="txtScreenLabel">Text Screen</h3>
+      </div>
+      <p class='usageNote' style='width:20em'>Text screen is 16 lines of 32 characters starting at address $0400.</p>
+    </div>
+      
     <!-- <div class='screenPanel'>
         <h3>Graphics screen</h3>
         <div id='grphScreenHolder'>

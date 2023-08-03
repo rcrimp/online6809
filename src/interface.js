@@ -377,32 +377,51 @@ function TextScreen(videoRAM, videoBase, width, height) {
   this.update = function(holder, address, value) {
     let cell;
     const element = document.getElementById('txtScreenTable');
-    if (element) {
+    
+    if (!element) {
+      return
+    }
       trc('Update element found', '');
       //      console.dir (holder);
-      cell = element.rows[Math.floor((address - holder.base) / width)].cells[
-          (address - holder.base) % width];
-      if (cell) {
-        if (value >= 0x80) {
-          cell.innerHTML = blockChars[value & 0x0f];
-          cell.className = blockClasses[(value & 0x70) >> 4];
-        } else {
-          if ((value & 0x3f) === 0x20) {
-            cell.innerHTML = '&nbsp;';
-          } else {
-            cell.innerHTML = holder.charSet[value & 0x3f];
-          }
-          switch (value & 0x40) {
-            case 0:
-              cell.className = 'txtBG';
-              break;
-            case 0x40:
-              cell.className = 'txtFG';
-              break;
-          }
-        }
+      const row = Math.floor((address - holder.base) / width)
+      const col = (address - holder.base) % width;
+      cell = element.rows[row].cells[col];
+      if (!cell) {
+        return;
       }
+
+      let char = null;
+      let className = null;
+      if (value >= 0x80) {
+        char = blockChars[value & 0x0f];
+        className = blockClasses[(value & 0x70) >> 4];
+      } else {
+        if ((value & 0x3f) === 0x20) {
+          char = '&nbsp;';
+        } else {
+          char = holder.charSet[value & 0x3f];
+        }
+        switch (value & 0x40) {
+          case 0:
+            className = 'txtBG';
+            break;
+          case 0x40:
+            className = 'txtFG';
+            break;
+        }
     }
+    if (char) cell.innerHTML = char;
+    if (className) cell.className = className;
+    if (char == '&nbsp;') char = ' ';
+    if (char.length > 1) {
+      let sub = char.substring(3, 7);
+      let hex = parseInt(sub, 16);
+      let c2 = String.fromCharCode(hex)
+      // console.log(char, sub, hex, c2);
+      char = c2;
+    }
+    if (txtScreenContent)txtScreenContent[address - holder.base] = char;
+    if (txtScreenColours) txtScreenColours[address - holder.base] = className;
   };
   this.createScreenTable = function(tableId, width, height) {
     let rows;
